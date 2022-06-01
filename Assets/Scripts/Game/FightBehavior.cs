@@ -70,6 +70,7 @@ public class FightBehavior : MonoBehaviour
     {
         CurrentCharacter = character;
         CurrentCharacter.View.SetCanPlay(true);
+        OnChangeTurnCharacter?.Invoke(character);
     }
 
     public void ChangeRound()
