@@ -6,20 +6,20 @@ using UnityEngine;
 public class GameArea : MonoBehaviour
 {
     public static GameArea instance;
-    [SerializeField] private FightBehavior fightBehavior;
-    public CharacterFactory characterFactory; //проверить должна ли быть паблик
+    public FightBehavior fightBehavior;
+    public CharacterFactory characterFactory;
     public GameStateBehavior gameStateBehavior;
     public AttackBehavior attackBehavior;
     public ActionPanel actionButtonsPanel;
     public CharacteristicsPanel characteristicsPanel;
+    public EndGameWindow endGameWindow;
+    public CounterPanel counterPanel;
     public Animator GameAreaAnimator;
     public Transform CharacterContainer;
 
     [SerializeField] private Player player1, player2;
     public GameObject[] spawnPoints;
     public float SpaceBetweenSpawnCharacter = 1f;
-
-
 
     public void Awake()
     {
@@ -37,7 +37,7 @@ public class GameArea : MonoBehaviour
         characteristicsPanel.Init();
         gameStateBehavior.Init();
         fightBehavior.Init(player1, player2);
-        attackBehavior.Init();
+        counterPanel.Init();
     }
 
     public void SetBringToCharacters(bool value)

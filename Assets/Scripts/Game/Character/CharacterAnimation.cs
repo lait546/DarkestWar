@@ -6,12 +6,10 @@ using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour
 {
-    [SerializeField] private SkeletonAnimation skeletonAnimation;
+    [SerializeField] public SkeletonAnimation skeletonAnimation;
     [SerializeField] private Animator animator;
     private AnimationType currentState, previousState;
     private Spine.TrackEntry currentAnimation;
-
-    public event Action OnEndCurrentAnimation;
 
     public void StartAnimation(AnimationType type)
     {
@@ -62,7 +60,7 @@ public class CharacterAnimation : MonoBehaviour
     private IEnumerator IBackToIdle()
     {
         yield return new WaitForSpineAnimationComplete(currentAnimation);
-        currentAnimation = skeletonAnimation.state.SetAnimation(0, "Idle", true);
+        ChangeAnimation(AnimationType.Idle);
     }
 
     public void SetBacklight(bool value)

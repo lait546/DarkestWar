@@ -5,20 +5,24 @@ using UnityEngine;
 
 public class CharacteristicsPanel : MonoBehaviour
 {
-    public static CharacteristicsPanel instance;
     [SerializeField] private TextMeshProUGUI NameCharacter, HP, Damage;
     [SerializeField] private HealthBar characterHealthBar;
 
     public void Init()
     {
-        instance = this;
+        GameArea.instance.fightBehavior.OnChangeTurnCharacter += ChangeCharacteristics;
     }
 
-    public void ChangeCharacteristics(string name, int hp, int maxHp, int damage)
+    public void ChangeCharacteristics(Character character)
     {
-        NameCharacter.text = name;
-        HP.text = "Health: " + hp.ToString() + "/" + maxHp.ToString();
-        Damage.text = "Damage: " + damage.ToString();
-        characterHealthBar.ChangeHPScale(hp, maxHp);
+        NameCharacter.text = character.gameObject.name;
+        HP.text = "Health: " + character.stats.Health.ToString() + "/" + character.stats.MAX_HEALTH.ToString();
+        Damage.text = "Damage: " + character.stats.Damage.ToString();
+        characterHealthBar.ChangeHPScale(character.stats.Health, character.stats.MAX_HEALTH);
+    }
+
+    public void OnDisable()
+    {
+        GameArea.instance.fightBehavior.OnChangeTurnCharacter -= ChangeCharacteristics;
     }
 }

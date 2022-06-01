@@ -131,9 +131,9 @@ GameObject:
   - component: {fileID: 5242939755913786339}
   - component: {fileID: 1857209810046603940}
   - component: {fileID: 7662648738423417442}
+  - component: {fileID: 37286664797477968}
   - component: {fileID: 6415994100317247102}
   - component: {fileID: 6922073358880586996}
-  - component: {fileID: 37286664797477968}
   m_Layer: 0
   m_Name: WarriorBase
   m_TagString: Untagged
@@ -174,9 +174,8 @@ MonoBehaviour:
   stats:
     max_health: 20
     health: 20
-    damage: 3
+    damage: 7
   Movement: {fileID: 37286664797477968}
-  Animation: {fileID: 7662648738423417442}
   View: {fileID: 1857209810046603940}
   CanAttacked: 0
 --- !u!114 &1857209810046603940
@@ -192,10 +191,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 5242939755913786339}
+  Animation: {fileID: 7662648738423417442}
   healthBar: {fileID: 1912367240857852925}
   backlightImage: {fileID: 2063279958418929683}
   colorIsPlaying: {r: 1, g: 0, b: 0.87058824, a: 1}
   colorCanAttack: {r: 1, g: 0, b: 0, a: 1}
+  meshRenderer: {fileID: 1637993746468238636}
 --- !u!114 &7662648738423417442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +211,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonAnimation: {fileID: 1637993746468238635}
   animator: {fileID: 6415994100317247102}
+--- !u!114 &37286664797477968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637993746929910359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9b10dcaf6a93f4bb466274cfc42e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &6415994100317247102
 Animator:
   serializedVersion: 4
@@ -244,18 +257,6 @@ CapsuleCollider:
   m_Height: 3.81
   m_Direction: 1
   m_Center: {x: 0, y: 1.78, z: 0}
---- !u!114 &37286664797477968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637993746929910359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9b10dcaf6a93f4bb466274cfc42e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8120918684870086368
 GameObject:
   m_ObjectHideFlags: 0

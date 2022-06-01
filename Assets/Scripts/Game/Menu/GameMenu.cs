@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMenu : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameMenu : MonoBehaviour
     public void Awake()
     {
         instance = this;
+        Time.timeScale = 1f;
     }
 
     void Update()
@@ -33,5 +35,10 @@ public class GameMenu : MonoBehaviour
             GameMenuWindow.SetActive(false);
             Time.timeScale = 1f;
         }
+    }
+
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

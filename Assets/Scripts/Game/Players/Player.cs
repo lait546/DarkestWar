@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public CharacterType[] SelectedCharacters;
     public List<Character> characters = new List<Character>();
     public bool canPlay = false;
-    public int numberPlayer; // сделать свойством
+    public int numberPlayer;
 
     public void Init()
     {

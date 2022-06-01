@@ -16,7 +16,7 @@ public class BaseGameState : GameStates
 
     public override void Stop()
     {
-        //ActionPanel.instance.SetDisableActionButtons(false);
+        
     }
 
 

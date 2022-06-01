@@ -11,7 +11,6 @@ public abstract class Character : MonoBehaviour, IPointerClickHandler
 {
     public CharacterStats stats;
     public CharacterMovement Movement;
-    public CharacterAnimation Animation;
     public CharacterView View;
     public bool CanAttacked = false;
 
@@ -28,7 +27,7 @@ public abstract class Character : MonoBehaviour, IPointerClickHandler
 
     public virtual void Attack(Character toAttack)
     {
-        Animation.StartAnimation(AnimationType.Attack1);
+        View.Animation.StartAnimation(AnimationType.Attack1);
     }
 
     public virtual void TakeDamage(int value)
@@ -36,7 +35,7 @@ public abstract class Character : MonoBehaviour, IPointerClickHandler
         stats.Health -= value;
         OnChangeHealth?.Invoke(stats.Health);
 
-        Animation.StartAnimation(AnimationType.TakeDamage);
+        View.Animation.StartAnimation(AnimationType.TakeDamage);
         
         if (stats.Health <= 0)
             Death();
@@ -45,7 +44,7 @@ public abstract class Character : MonoBehaviour, IPointerClickHandler
     protected void Death()
     {
         OnDeath?.Invoke(this);
-        Animation.StartAnimationWithComplete(AnimationType.Death, () => Destroy(gameObject, 1f));
+        View.Animation.StartAnimationWithComplete(AnimationType.Death, () => Destroy(gameObject, 1f));
     }
 
     public void OnPointerClick(PointerEventData eventData)

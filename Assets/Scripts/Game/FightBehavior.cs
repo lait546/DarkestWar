@@ -9,14 +9,17 @@ public class FightBehavior : MonoBehaviour
 {
     public static FightBehavior instance;
     public Player player1, player2;
-    private int Turn = 0, Round = 0, numberPlayer = 0, characterCounter = 0;
+    private int Turn = 0, Round = 0,  characterCounter = 0;
     private List<Character> characters = new List<Character>();
+    private Character CurrentCharacter;
+
+    public event Action<Character> OnChangeTurnCharacter;
+    public event Action<int> OnChangeRound;
 
     public void Init(Player _player1, Player _player2)
     {
         instance = this;
 
-        numberPlayer = UnityEngine.Random.Range(0, 2); //каким по счету будет ходить игрок
         player1 = _player1;
         player2 = _player2;
 
@@ -36,34 +39,43 @@ public class FightBehavior : MonoBehaviour
         ChangeTurn();
     }
 
-    public void SwitchTurnPlayer()
-    {
-        player1.canPlay = false;
-        player2.canPlay = false;
-
-        if (Turn % 2 == numberPlayer)
-            player1.canPlay = true;
-        else
-            player2.canPlay = true;
-    }
-
     public void ChangeTurn()
     {
-        characters[characterCounter].View.SetCanPlay(false);
+        if(CurrentCharacter)
+            CurrentCharacter.View.SetCanPlay(false);
+
         GameStateBehavior.Instance.SwitchState<BaseGameState>();
 
         Turn++;
-        SwitchTurnPlayer();
 
         if (Turn != 0)
             characterCounter++;
 
         if (characterCounter >= characters.Count)
+        {
             characterCounter = 0;
 
-        CharacteristicsPanel.instance.ChangeCharacteristics(characters[characterCounter].gameObject.name, characters[characterCounter].stats.Health, characters[characterCounter].stats.MAX_HEALTH, characters[characterCounter].stats.Damage);
+            characters.Shuffle();
 
-        characters[characterCounter].View.SetCanPlay(true);
+            ChangeRound();
+        }
+
+        if(player1.characters.Count == 0 || player2.characters.Count == 0)
+            GameStateBehavior.Instance.SwitchState<EndGameState>();
+
+        ChangeCharacterTurn(characters[characterCounter]);
+    }
+
+    public void ChangeCharacterTurn(Character character)
+    {
+        CurrentCharacter = character;
+        CurrentCharacter.View.SetCanPlay(true);
+    }
+
+    public void ChangeRound()
+    {
+        Round++;
+        OnChangeRound?.Invoke(Round);
     }
 
     public void ChoiceAttackedEnemy(bool value)
@@ -73,7 +85,7 @@ public class FightBehavior : MonoBehaviour
 
     public void SetPreparationToAttack(bool value)
     {
-        if (characters[characterCounter].NumberPlayer == player1.numberPlayer)
+        if (CurrentCharacter.NumberPlayer == player1.numberPlayer)
             foreach(var character in player2.characters)
                 character.View.SetCanBeAttacked(value);
         else
@@ -88,21 +100,16 @@ public class FightBehavior : MonoBehaviour
 
     private IEnumerator IStartAttack(Character _characterAttacked)
     {
-        characters[characterCounter].View.SetCanPlay(false);
-        AttackBehavior.instance.StartAttack(characters[characterCounter], _characterAttacked);
+        CurrentCharacter.View.SetCanPlay(false);
+        GameArea.instance.attackBehavior.StartAttack(CurrentCharacter, _characterAttacked);
         yield return new WaitForSeconds(1.5f);
-        characters[characterCounter].Attack(_characterAttacked);
-        _characterAttacked.TakeDamage(characters[characterCounter].stats.Damage);
+        CurrentCharacter.Attack(_characterAttacked);
+        _characterAttacked.TakeDamage(CurrentCharacter.stats.Damage);
     }
 
     public void RemoveCharacterList(Character _character)
     {
         if (characters.Exists(x => x == _character))
             characters.Remove(_character);
-    }
-
-    public void EndFight()
-    {
-        
     }
 }

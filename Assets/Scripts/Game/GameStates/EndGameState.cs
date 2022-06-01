@@ -11,7 +11,7 @@ public class EndGameState : GameStates
 
     public override void Start()
     {
-
+        GameArea.instance.endGameWindow.EndGame();
     }
 
     public override void Stop()

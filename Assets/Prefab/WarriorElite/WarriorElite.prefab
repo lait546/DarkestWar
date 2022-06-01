@@ -55,9 +55,8 @@ MonoBehaviour:
   stats:
     max_health: 25
     health: 25
-    damage: 5
+    damage: 9
   Movement: {fileID: 400250587173098045}
-  Animation: {fileID: 3759317603505205249}
   View: {fileID: 8720735769013613606}
   CanAttacked: 0
 --- !u!95 &3035857743132924330
@@ -93,10 +92,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 6735083363328155029}
+  Animation: {fileID: 3759317603505205249}
   healthBar: {fileID: 6272547784059554904}
   backlightImage: {fileID: 5814958289341738216}
   colorIsPlaying: {r: 1, g: 0, b: 0.87058824, a: 1}
   colorCanAttack: {r: 1, g: 0, b: 0, a: 1}
+  meshRenderer: {fileID: 2271686631082031028}
 --- !u!114 &400250587173098045
 MonoBehaviour:
   m_ObjectHideFlags: 0
