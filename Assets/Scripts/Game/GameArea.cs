@@ -40,7 +40,7 @@ public class GameArea : MonoBehaviour
         counterPanel.Init();
     }
 
-    public void SetBringToCharacters(bool value)
+    public void SetCameraBringToCharacters(bool value)
     {
         GameAreaAnimator.SetBool("Bring", value);
     }

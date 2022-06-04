@@ -15,7 +15,6 @@ public class CharacteristicsPanel : MonoBehaviour
 
     public void ChangeCharacteristics(Character character)
     {
-        Debug.Log("ChangeCharacteristics");
         NameCharacter.text = character.gameObject.name;
         HP.text = "Health: " + character.stats.Health.ToString() + "/" + character.stats.MAX_HEALTH.ToString();
         Damage.text = "Damage: " + character.stats.Damage.ToString();

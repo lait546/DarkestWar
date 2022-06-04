@@ -18,6 +18,5 @@ public class ChoiceAttackedEnemyState : GameStates
     public override void Stop()
     {
         FightBehavior.instance.SetPreparationToAttack(false);
-
     }
 }

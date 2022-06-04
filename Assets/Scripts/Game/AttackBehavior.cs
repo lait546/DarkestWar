@@ -5,17 +5,17 @@ using UnityEngine;
 public class AttackBehavior : MonoBehaviour
 {
     [SerializeField] private Transform PointForFight1, PointForFight2;
-    [SerializeField] private float WaitAttackTime = 4f;
+    [SerializeField] private float WaitAttackTime = 4f, cameraBringWaitTime = 1.5f;
     private Character character1, character2;
     Vector3 oldPosCharacter1, oldPosCharacter2;
 
-    public void StartAttack(Character _character1, Character _character2)
+    public void StartAttack(Character _attacking, Character _attacked)
     {
-        character1 = _character1;
-        character2 = _character2;
+        character1 = _attacking;
+        character2 = _attacked;
 
-        oldPosCharacter1 = _character1.transform.position;
-        oldPosCharacter2 = _character2.transform.position;
+        oldPosCharacter1 = _attacking.transform.position;
+        oldPosCharacter2 = _attacked.transform.position;
 
         GameStateBehavior.Instance.SwitchState<AttackCharactersState>();
 
@@ -32,17 +32,20 @@ public class AttackBehavior : MonoBehaviour
             character1.Movement.Move(PointForFight2.position);
             character2.Movement.Move(PointForFight1.position);
         }
-        StartCoroutine(IWaitAttack());
+        StartCoroutine(IWaitAttack(_attacking, _attacked));
     }
 
-    public IEnumerator IWaitAttack()
+    private IEnumerator IWaitAttack(Character _attacking, Character _attacked)
     {
+        yield return new WaitForSeconds(cameraBringWaitTime);
+        _attacking.Attack(_attacked);
+        _attacked.TakeDamage(_attacking.stats.Damage);
         yield return new WaitForSeconds(WaitAttackTime);
         EndAttack();
         FightBehavior.instance.ChangeTurn();
     }
 
-    public void EndAttack()
+    private void EndAttack()
     {
         if (character1)
         {

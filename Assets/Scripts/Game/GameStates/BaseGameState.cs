@@ -18,6 +18,4 @@ public class BaseGameState : GameStates
     {
         
     }
-
-
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour
 {
-    [SerializeField] public SkeletonAnimation skeletonAnimation;
+    public SkeletonAnimation skeletonAnimation;
     [SerializeField] private Animator animator;
     private AnimationType currentState, previousState;
     private Spine.TrackEntry currentAnimation;
