@@ -11,12 +11,12 @@ public class AttackCharactersState : GameStates
 
     public override void Start()
     {
-        GameArea.instance.SetBringToCharacters(true);
+        GameArea.instance.SetCameraBringToCharacters(true);
         ActionPanel.instance.SetEnableAllButtons(false);
     }
 
     public override void Stop()
     {
-        GameArea.instance.SetBringToCharacters(false);
+        GameArea.instance.SetCameraBringToCharacters(false);
     }
 }

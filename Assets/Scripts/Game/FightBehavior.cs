@@ -96,16 +96,8 @@ public class FightBehavior : MonoBehaviour
 
     public void StartAttack(Character _characterAttacked)
     {
-        StartCoroutine(IStartAttack(_characterAttacked));
-    }
-
-    private IEnumerator IStartAttack(Character _characterAttacked)
-    {
         CurrentCharacter.View.SetCanPlay(false);
         GameArea.instance.attackBehavior.StartAttack(CurrentCharacter, _characterAttacked);
-        yield return new WaitForSeconds(1.5f);
-        CurrentCharacter.Attack(_characterAttacked);
-        _characterAttacked.TakeDamage(CurrentCharacter.stats.Damage);
     }
 
     public void RemoveCharacterList(Character _character)
