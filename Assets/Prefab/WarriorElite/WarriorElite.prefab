@@ -59,6 +59,7 @@ MonoBehaviour:
   Movement: {fileID: 400250587173098045}
   View: {fileID: 8720735769013613606}
   CanAttacked: 0
+  currentTarget: {fileID: 0}
 --- !u!95 &3035857743132924330
 Animator:
   serializedVersion: 4
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43763dd7e7c1f7643947b815474cc5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 6735083363328155029}
   skeletonAnimation: {fileID: 2271686631082031029}
   animator: {fileID: 3035857743132924330}
 --- !u!136 &1057883830754891486

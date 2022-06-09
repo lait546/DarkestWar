@@ -23,6 +23,4 @@ public class DamagePopup : MonoBehaviour
         text.text = damage.ToString();
         Destroy(this, anim.GetCurrentAnimatorClipInfo(0).Length);
     }
-
-
 }

@@ -14,18 +14,6 @@ public class CharacterAnimation : MonoBehaviour
     private Spine.TrackEntry currentAnimation;
     private Coroutine lastCoroutine;
 
-    //public Action OnAttackHit;
-
-    //public void OnEnable()
-    //{
-    //    skeletonAnimation.state.Event += OnEvent;
-    //}
-
-    //public void OnDisable()
-    //{
-    //    skeletonAnimation.state.Event -= OnEvent;
-    //}
-
     public void StartAnimation(AnimationType type)
     {
         ChangeAnimation(type);
