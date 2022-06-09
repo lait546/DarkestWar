@@ -39,7 +39,6 @@ public class AttackBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(cameraBringWaitTime);
         _attacking.Attack(_attacked);
-        _attacked.TakeDamage(_attacking.stats.Damage);
         yield return new WaitForSeconds(WaitAttackTime);
         EndAttack();
         FightBehavior.instance.ChangeTurn();

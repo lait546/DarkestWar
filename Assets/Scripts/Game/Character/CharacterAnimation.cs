@@ -4,12 +4,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Character))]
 public class CharacterAnimation : MonoBehaviour
 {
+    public Character character;
     public SkeletonAnimation skeletonAnimation;
     [SerializeField] private Animator animator;
     private AnimationType currentState, previousState;
     private Spine.TrackEntry currentAnimation;
+    private Coroutine lastCoroutine;
+
+    //public Action OnAttackHit;
+
+    //public void OnEnable()
+    //{
+    //    skeletonAnimation.state.Event += OnEvent;
+    //}
+
+    //public void OnDisable()
+    //{
+    //    skeletonAnimation.state.Event -= OnEvent;
+    //}
 
     public void StartAnimation(AnimationType type)
     {
@@ -19,7 +34,11 @@ public class CharacterAnimation : MonoBehaviour
     public void StartAnimationWithComplete(AnimationType type, Action onEndAnimation)
     {
         ChangeAnimation(type);
-        StartCoroutine(IChangeAnimation(onEndAnimation));
+
+        if (lastCoroutine != null)
+            StopCoroutine(lastCoroutine);
+
+        lastCoroutine = StartCoroutine(IChangeAnimation(onEndAnimation));
     }
 
     private IEnumerator IChangeAnimation(Action onEndAnimation)
@@ -37,14 +56,16 @@ public class CharacterAnimation : MonoBehaviour
                 case AnimationType.Idle:
                     currentAnimation = skeletonAnimation.state.SetAnimation(0, "Idle", true);
                     break;
-                case AnimationType.Attack1:
-                    currentAnimation = skeletonAnimation.state.SetAnimation(0, "DoubleShift", false);
-                    break;
-                case AnimationType.Attack2:
-                    currentAnimation = skeletonAnimation.state.SetAnimation(0, "Miner_1", false);
-                    break;
-                case AnimationType.Attack3:
-                    currentAnimation = skeletonAnimation.state.SetAnimation(0, "PickaxeCharge", false);
+                case AnimationType.Attack:
+                    int rnd = UnityEngine.Random.Range(0, 3);
+
+                    if(rnd == 0)
+                        currentAnimation = skeletonAnimation.state.SetAnimation(0, "DoubleShift", false);
+                    else if (rnd == 1)
+                        currentAnimation = skeletonAnimation.state.SetAnimation(0, "Miner_1", false);
+                    else if (rnd == 2)
+                        currentAnimation = skeletonAnimation.state.SetAnimation(0, "PickaxeCharge", false);
+
                     break;
                 case AnimationType.Death:
                     currentAnimation = skeletonAnimation.state.SetAnimation(0, "Pull", false);
@@ -63,6 +84,18 @@ public class CharacterAnimation : MonoBehaviour
         ChangeAnimation(AnimationType.Idle);
     }
 
+    public void Attack(Action callback)
+    {
+        StartCoroutine(IAttackRecoil(callback));
+    }
+
+    private IEnumerator IAttackRecoil(Action callback)
+    {
+        StartAnimation(AnimationType.Attack);
+        yield return new WaitForSpineEvent(skeletonAnimation.state, "Hit");
+        callback?.Invoke();
+    }
+
     public void SetBacklight(bool value)
     {
         animator.SetBool("Backlight", value);
@@ -72,8 +105,6 @@ public enum AnimationType
 {
     Idle,
     TakeDamage,
-    Attack1,
-    Attack2,
-    Attack3,
+    Attack,
     Death
 }

@@ -178,6 +178,7 @@ MonoBehaviour:
   Movement: {fileID: 37286664797477968}
   View: {fileID: 1857209810046603940}
   CanAttacked: 0
+  currentTarget: {fileID: 0}
 --- !u!114 &1857209810046603940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43763dd7e7c1f7643947b815474cc5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 0}
   skeletonAnimation: {fileID: 1637993746468238635}
   animator: {fileID: 6415994100317247102}
 --- !u!114 &37286664797477968
